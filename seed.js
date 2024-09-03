@@ -28,38 +28,24 @@ const movies = [
 const shows = [
   {
     movie: null, // We'll set this after creating movies
-    startTime: new Date('2023-05-01T18:00:00'),
-    endTime: new Date('2023-05-01T20:28:00'),
-    currentSeatsBooked: 50,
+    startTime: new Date('2024-10-01T18:00:00'),
+    endTime: new Date('2024-10-01T20:28:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4','A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
     roomNumber: 1,
-    maxSeatsBooked: 100
   },
   {
     movie: null,
-    startTime: new Date('2023-05-01T20:00:00'),
-    endTime: new Date('2023-05-01T22:22:00'),
-    currentSeatsBooked: 66,
+    startTime: new Date('2024-10-01T20:00:00'),
+    endTime: new Date('2024-10-01T22:22:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
     roomNumber: 1,
-    maxSeatsBooked: 100
   }
   // Add more shows here
 ];
 
-const bookings = [
-  {
-    email: 'john.doe@example.com',
-    show: null, // We'll set this after creating shows
-    seats: ['A1', 'A2'],
-    totalPrice: 20,
-  },
-  {
-    email: 'lisa.poe@example.com',
-    show: null,
-    seats: ['B3', 'B4', 'B5'],
-    totalPrice: 30
-  },
-  // Add more bookings here
-];
+const numberOfBookings = shows.length;
 
 async function seedDatabase() {
   try {
@@ -88,10 +74,15 @@ async function seedDatabase() {
     const createdShows = await Show.insertMany(shows);
 
     // Seed bookings
-    bookings.forEach((booking, index) => {
-      booking.show = createdShows[index % createdShows.length]._id;
-    });
-    await Booking.insertMany(bookings);
+    let show, email, seats, totalPrice;
+    for(let i = 0; i < numberOfBookings; i++) {
+      show = createdShows.pop();
+      email = `user${i}@example.com`;
+      // pick a slice of 1-4 seats from the available seats
+      seats = show.availableSeats.slice(0, Math.floor(Math.random() * 4) + 1);
+      totalPrice = seats.length * 10;
+      await Booking.createBooking(show, email, seats, totalPrice);
+    }
 
     console.log('Database seeded successfully');
   } catch (error) {

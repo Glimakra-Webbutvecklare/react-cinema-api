@@ -50,8 +50,27 @@ describe('API Endpoints', () => {
     });
 
     // Add more tests for other booking routes (POST, PUT, DELETE)
-  });
+    // Booking a show
+    it('should book a show', async () => {
+      // Create a test booking by first finding a movie
+      const shows = await request(app).get('/api/v1/shows');
 
+      // pick random movie from the list
+      const randomShow = shows.body[Math.floor(Math.random() * shows.body.length)];
+
+      const bookingData = {
+        show: randomShow._id,
+        email: 'test@example.com',
+        seats: ['B1', 'B2'],
+        totalPrice: 20,
+      };
+
+      const res = await request(app).post('/api/v1/bookings').send(bookingData);
+
+      expect(res.statusCode).toBe(201);
+    });
+  });
+  
   describe('Rate Limiting', () => {
     it('should limit requests to 100 per 15 minutes', async () => {
       for (let i = 0; i < 100; i++) {
@@ -75,4 +94,5 @@ describe('API Endpoints', () => {
       expect(res.text).toBe('Something broke!');
     });
   });
+
 });

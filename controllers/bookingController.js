@@ -13,25 +13,17 @@ exports.getBooking = async (req, res) => {
 
 // Create a new booking
 exports.createBooking =  async (req, res) => {
-    // Check if the show is available
-    const show = await Show.findById(req.body.show);
-    if (!show) {
-	return res.status(404).send('Show not found');
-    }
+    // Use static method to create a new booking
+    const {show, email, seats, totalPrice} = req.body;
     
-    // Check if available seats
-    if ((show.currentSeatsBooked + req.body.seats.length) >= show.maxSeatsBooked) {
-	return res.status(400).send('Show is not available');
+    // validate re.body
+    if (!show || !email || !seats || !totalPrice) {
+        return res.status(400).send('Missing required fields');
     }
 
-    // Update show
-    show.currentSeatsBooked += req.body.seats.length;
-    await show.save();
-    
-    const booking = new Booking(req.body);
-    await booking.save();
+    const booking = await Booking.createBooking(show, email, seats, totalPrice);
 
-    res.send(booking);
+    res.status(201).send(booking);
 };
 
 // delete a booking
