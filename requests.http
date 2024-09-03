@@ -1,17 +1,16 @@
 
 ### Get all moives
-GET http://localhost:3000/api/v1/movies
+GET https://cinema-api.henrybergstrom.com/api/v1/movies
 Accept: application/json
 
-
 ### Get one movie
-GET http://localhost:3000/api/v1/movies/66d718563016b8defa47e67e
+GET https://cinema-api.henrybergstrom.com/api/v1/movies/66d718563016b8defa47e67e
 Accept: application/json
 
 ### Get all shows
-GET http://localhost:3000/api/v1/shows/
+GET https://cinema-api.henrybergstrom.com/api/v1/shows/
 Accept: application/json
 
 ### Get all bookings
-GET http://localhost:3000/api/v1/bookings
+GET https://cinema-api.henrybergstrom.com/api/v1/bookings
 Content-Type: application/json

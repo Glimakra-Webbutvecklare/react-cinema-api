@@ -19,7 +19,7 @@
 
         <h2>Movies</h2>
         <p>The Movies endpoint allows you to interact with the movies in the cinema database.</p>
-        <p>The Movies endpoint is located at /api/v1/movies</p>
+        <p>The Movies endpoint is located at <b>/api/v1/movies</b></p>
         <pre>
         // Get all movies
         fetch('https://cinema-api.henrybergstrom.com/api/v1/movies')
@@ -28,12 +28,12 @@
         </pre>
         <h3>Other routes</h3>
         <ul>
-            <li>Get specific movie <b>/api/v1/movies/:id</b></li>
+            <li>GET specific movie <b>/api/v1/movies/:id</b></li>
         </ul>
 
         <h2>Shows</h2>
         <p>The Shows endpoint allows you to interact with the shows in the cinema database.</p>
-        <p>The Shows endpoint is located at /api/v1/shows</p>
+        <p>The Shows endpoint is located at <b>/api/v1/shows</b></p>
         <pre>
         // Get all shows for a specific movie
         fetch('https://cinema-api.henrybergstrom.com/api/v1/shows/movie/:movieId')
@@ -42,24 +42,25 @@
         </pre>
         <h3>Other routes</h3>
         <ul>
-            <li>Get all shows <b>/api/v1/shows</b></li>
-            <li>Get specific show <b>/api/v1/shows/:id</b></li>
+            <li>GET all shows <b>/api/v1/shows</b></li>
+            <li>GET specific show <b>/api/v1/shows/:id</b></li>
         </ul>
 
         <h2>Bookings</h2>
         <p>The Bookings endpoint allows you to interact with the bookings in the cinema database.</p>
-        <p>The Bookings endpoint is located at /api/v1/bookings</p>
+        <p>The Bookings endpoint is located at <b>/api/v1/bookings</b></p>
         <pre>
         // Create Booking
-        const bookingData = {show: <id-of-show>, seats: ["A1", "A2"], email: "henry@example.com"}
-        fetch('https://cinema-api.henrybergstrom.com/api/v1/bookings', {method: "POST", body: JSON.stringify()})
+        const bookingData = {show: "id-of-show", seats: ["A1", "A2"], email: "henry@example.com"}
+        fetch('https://cinema-api.henrybergstrom.com/api/v1/bookings', { method: "POST", body: JSON.stringify(bookingData) })
         .then(response => response.json())
         .then(data => console.log(data))
         </pre>
         <h3>Other routes</h3>
         <ul>
-            <li>Get all bookings <b>/api/v1/bookings</b></li>
-            <li>Get specific show <b>/api/v1/shows/:id</b></li>
+            <li>GET all bookings <b>/api/v1/bookings</b></li>
+            <li>GET specific booking <b>/api/v1/bookings/:id</b></li>
+            <li>DELETE specific booking <b>/api/v1/bookings/:id</b></li>
         </ul>
     </main>
 </body>
