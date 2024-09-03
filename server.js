@@ -8,6 +8,9 @@ const morgan = require('morgan');
 const app = express();
 app.use(express.json());
 
+// Trust the reverse proxy
+app.set('trust proxy', true);
+
 // Add logger for all requests
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 app.use(morgan('combined', {stream: accessLogStream} ));
