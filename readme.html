@@ -21,28 +21,46 @@
         <p>The Movies endpoint allows you to interact with the movies in the cinema database.</p>
         <p>The Movies endpoint is located at /api/v1/movies</p>
         <pre>
-        fetch('http://localhost:3000/api/v1/movies')
+        // Get all movies
+        fetch('https://cinema-api.henrybergstrom.com/api/v1/movies')
             .then(response => response.json())
             .then(data => console.log(data))
         </pre>
+        <h3>Other routes</h3>
+        <ul>
+            <li>Get specific movie <b>/api/v1/movies/:id</b></li>
+        </ul>
 
         <h2>Shows</h2>
         <p>The Shows endpoint allows you to interact with the shows in the cinema database.</p>
         <p>The Shows endpoint is located at /api/v1/shows</p>
         <pre>
-        fetch('http://localhost:3000/api/v1/shows/:movieId')
+        // Get all shows for a specific movie
+        fetch('https://cinema-api.henrybergstrom.com/api/v1/shows/movie/:movieId')
         .then(response => response.json())
         .then(data => console.log(data))
         </pre>
+        <h3>Other routes</h3>
+        <ul>
+            <li>Get all shows <b>/api/v1/shows</b></li>
+            <li>Get specific show <b>/api/v1/shows/:id</b></li>
+        </ul>
 
         <h2>Bookings</h2>
         <p>The Bookings endpoint allows you to interact with the bookings in the cinema database.</p>
         <p>The Bookings endpoint is located at /api/v1/bookings</p>
         <pre>
-        fetch('http://localhost:3000/api/v1/bookings')
+        // Create Booking
+        const bookingData = {show: <id-of-show>, seats: ["A1", "A2"], email: "henry@example.com"}
+        fetch('https://cinema-api.henrybergstrom.com/api/v1/bookings', {method: "POST", body: JSON.stringify()})
         .then(response => response.json())
         .then(data => console.log(data))
         </pre>
+        <h3>Other routes</h3>
+        <ul>
+            <li>Get all bookings <b>/api/v1/bookings</b></li>
+            <li>Get specific show <b>/api/v1/shows/:id</b></li>
+        </ul>
     </main>
 </body>
 

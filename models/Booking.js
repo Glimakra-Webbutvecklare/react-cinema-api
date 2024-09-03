@@ -15,8 +15,7 @@ const bookingSchema = new mongoose.Schema({
 // it must check if the show is available
 // and if the seats are available
 // and if the seats are not already booked
-bookingSchema.statics.createBooking = async function(showId, email, seats, totalPrice) {
-    console.log('Creating booking for show:', showId, 'with seats:', seats, 'and email:', email);
+bookingSchema.statics.createBooking = async function(showId, email, seats) {
     // Find the show and update in one atomic operation
     const updatedShow = await Show.findOneAndUpdate(
         {
@@ -40,9 +39,10 @@ bookingSchema.statics.createBooking = async function(showId, email, seats, total
         show: updatedShow,
         email,
         seats,
-        totalPrice
+        totalPrice: seats.length * updatedShow.pricePerSeat,
     });
 
+    console.log(booking);
     await booking.save();
 
     return booking;

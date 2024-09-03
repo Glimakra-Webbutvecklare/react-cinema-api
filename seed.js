@@ -74,14 +74,13 @@ async function seedDatabase() {
     const createdShows = await Show.insertMany(shows);
 
     // Seed bookings
-    let show, email, seats, totalPrice;
+    let show, email, seats;
     for(let i = 0; i < numberOfBookings; i++) {
       show = createdShows.pop();
-      email = `user${i}@example.com`;
+      email = `user${i+1}@example.com`;
       // pick a slice of 1-4 seats from the available seats
       seats = show.availableSeats.slice(0, Math.floor(Math.random() * 4) + 1);
-      totalPrice = seats.length * 10;
-      await Booking.createBooking(show, email, seats, totalPrice);
+      await Booking.createBooking(show, email, seats);
     }
 
     console.log('Database seeded successfully');

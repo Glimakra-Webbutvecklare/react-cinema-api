@@ -14,14 +14,14 @@ exports.getBooking = async (req, res) => {
 // Create a new booking
 exports.createBooking =  async (req, res) => {
     // Use static method to create a new booking
-    const {show, email, seats, totalPrice} = req.body;
+    const {show, email, seats} = req.body;
     
     // validate re.body
-    if (!show || !email || !seats || !totalPrice) {
+    if (!show || !email || !seats) {
         return res.status(400).send('Missing required fields');
     }
 
-    const booking = await Booking.createBooking(show, email, seats, totalPrice);
+    const booking = await Booking.createBooking(show, email, seats);
 
     res.status(201).send(booking);
 };

@@ -6,7 +6,8 @@ const showSchema = new mongoose.Schema({
     endTime: Date,
     availableSeats: [ String ],
     bookedSeats: [ String ], 
-    roomNumber: Number
+    roomNumber: Number,
+    pricePerSeat: { type: Number, default: 100 },
 });
 
 const Show = mongoose.model('Show', showSchema);

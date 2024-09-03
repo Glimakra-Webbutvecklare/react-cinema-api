@@ -12,6 +12,6 @@ Accept: application/json
 GET http://localhost:3000/api/v1/shows/
 Accept: application/json
 
-### Get all bokkings
+### Get all bookings
 GET http://localhost:3000/api/v1/bookings
 Content-Type: application/json
