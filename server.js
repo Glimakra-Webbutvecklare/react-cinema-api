@@ -1,9 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
+const fs = require('fs');
+const path = require('path');
+const morgan = require('morgan');
 
 const app = express();
 app.use(express.json());
+
+// Add logger for all requests
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+app.use(morgan('combined', {stream: accessLogStream} ));
 
 // Add environment variables from .env
 require('dotenv').config();
@@ -33,6 +40,11 @@ mongoose.connect(url, clientOptions)
 app.use('/api/v1/movies', limiter, require('./routes/movieRoutes'));
 app.use('/api/v1/shows', limiter, require('./routes/showRoutes'));
 app.use('/api/v1/bookings', limiter, require('./routes/bookingRoutes'));
+
+// Send readme.md as a response for the root route
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/readme.html');
+});
 
 // Error route
 app.get('/error', (req, res) => {

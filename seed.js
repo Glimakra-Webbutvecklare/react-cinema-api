@@ -11,7 +11,7 @@ const movies = [
     genre: 'Sci-Fi',
     releaseDate: new Date('2010-07-16'),
     director: 'Christopher Nolan',
-    posterUrl: 'https://example.com/inception-poster.jpg'
+    posterUrl: 'https://image.tmdb.org/t/p/original/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg'
   },
   {
     title: 'The Shawshank Redemption',
@@ -20,7 +20,7 @@ const movies = [
     genre: 'Drama',
     releaseDate: new Date('1994-09-23'),
     director: 'Frank Darabont',
-    posterUrl: 'https://example.com/shawshank-poster.jpg'
+    posterUrl: 'https://www.themoviedb.org/t/p/w1280/20f2GThu22hp5MgCA4dg3bZ3gTS.jpg'
   },
   // Add more movies here
 ];

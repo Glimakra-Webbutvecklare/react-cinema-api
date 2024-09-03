@@ -14,10 +14,15 @@ exports.getAllShows = async (req, res) => {
     res.send(shows);
 };
 
-// Get a specific Show
+// Get a specific Show by id
 exports.getShow = async (req, res) => {
     const show = await Show.findById(req.params.id).populate('movie');
     res.send(show);
+};
+
+exports.getShowsByMovieId = async (req, res) => {
+    const shows = await Show.find({ movie: req.params.id }).populate('movie');
+    res.send(shows);
 };
 
 // Update a Show

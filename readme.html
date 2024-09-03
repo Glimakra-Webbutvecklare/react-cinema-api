@@ -1,0 +1,49 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema API - Readme</title>
+    <!-- add mvp css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mvp.css">
+</head>
+
+<body>
+    <main>
+        <h1>Cinema API - Readme</h1>
+        <p>This is the documentation for the Cinema API.</p>
+        <p>The Cinema API is a RESTful API that allows you to interact with the cinema database.</p>
+        <p>The Cinema API is built using Node.js, Express.js, and MongoDB.</p>
+        <p>The Cinema API is hosted on Henry home server.</p>
+        <p>The Cinema API is open source and available on GitHub.</p>
+
+        <h2>Movies</h2>
+        <p>The Movies endpoint allows you to interact with the movies in the cinema database.</p>
+        <p>The Movies endpoint is located at /api/v1/movies</p>
+        <pre>
+        fetch('http://localhost:3000/api/v1/movies')
+            .then(response => response.json())
+            .then(data => console.log(data))
+        </pre>
+
+        <h2>Shows</h2>
+        <p>The Shows endpoint allows you to interact with the shows in the cinema database.</p>
+        <p>The Shows endpoint is located at /api/v1/shows</p>
+        <pre>
+        fetch('http://localhost:3000/api/v1/shows/:movieId')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        </pre>
+
+        <h2>Bookings</h2>
+        <p>The Bookings endpoint allows you to interact with the bookings in the cinema database.</p>
+        <p>The Bookings endpoint is located at /api/v1/bookings</p>
+        <pre>
+        fetch('http://localhost:3000/api/v1/bookings')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        </pre>
+    </main>
+</body>
+
+</html>

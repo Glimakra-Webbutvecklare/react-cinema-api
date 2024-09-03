@@ -9,6 +9,9 @@ router.post('/', showController.createShow);
 // Get all Shows
 router.get('/',  showController.getAllShows);
 
+// Get all Shows by movie id
+router.get('/movie/:id', showController.getShowsByMovieId);
+
 // Get a specific Show
 router.get('/:id', showController.getShow);
 

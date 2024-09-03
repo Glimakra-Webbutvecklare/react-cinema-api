@@ -1,50 +1,17 @@
 
-### Get all users
-GET http://localhost:3000/api/v1/users
+### Get all moives
+GET http://localhost:3000/api/v1/movies
 Accept: application/json
 
-### Get user by ID
-GET http://localhost:3000/api/v1/users/1
+
+### Get one movie
+GET http://localhost:3000/api/v1/movies/66d718563016b8defa47e67e
 Accept: application/json
 
-### Create new user
-POST http://localhost:3000/api/v1/users
+### Get all shows
+GET http://localhost:3000/api/v1/shows/
+Accept: application/json
+
+### Get all bokkings
+GET http://localhost:3000/api/v1/bookings
 Content-Type: application/json
-
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "password123"
-}
-
-### Update user
-PUT http://localhost:3000/api/v1/users/1
-Content-Type: application/json
-
-{
-  "name": "John Updated",
-  "email": "john.updated@example.com"
-}
-
-### Delete user
-DELETE http://localhost:3000/api/v1/users/1
-Accept: application/json
-
-### Login user
-POST http://localhost:3000/api/v1/auth/login
-Content-Type: application/json
-
-{
-  "email": "john@example.com",
-  "password": "password123"
-}
-
-### Get current user profile
-GET http://localhost:3000/api/v1/auth/profile
-Accept: application/json
-Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
-
-### Logout user
-POST http://localhost:3000/api/auth/logout
-Accept: application/json
-Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
