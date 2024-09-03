@@ -4,6 +4,8 @@
   "description": "backend for cinema case",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js",
     "test": "jest --detectOpenHandles"
   },
   "author": "Henry Bergström",

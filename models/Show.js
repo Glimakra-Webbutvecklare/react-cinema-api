@@ -4,7 +4,7 @@ const showSchema = new mongoose.Schema({
     movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie' },
     startTime: Date,
     endTime: Date,
-    currentSeatsBooked: Number,
+    bookings: [ {type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }], // Array of bookings
     maxSeatsBooked: Number,
     roomNumber: Number
 });
