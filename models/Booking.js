@@ -40,7 +40,6 @@ bookingSchema.statics.createBooking = async function(showId, email, seats) {
         totalPrice: seats.length * updatedShow.pricePerSeat,
     });
 
-    console.log(booking);
     await booking.save();
 
     return booking;

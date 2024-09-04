@@ -1,16 +1,26 @@
 
 ### Get all moives
-GET https://cinema-api.henrybergstrom.com/api/v1/movies
+GET http://localhost:3000/api/v1/movies
 Accept: application/json
 
 ### Get one movie
-GET https://cinema-api.henrybergstrom.com/api/v1/movies/66d718563016b8defa47e67e
+GET http://localhost:3000/api/v1/movies/66d718563016b8defa47e67e
 Accept: application/json
 
 ### Get all shows
-GET https://cinema-api.henrybergstrom.com/api/v1/shows/
+GET http://localhost:3000/api/v1/shows/
 Accept: application/json
 
 ### Get all bookings
-GET https://cinema-api.henrybergstrom.com/api/v1/bookings
+GET http://localhost:3000/api/v1/bookings
 Content-Type: application/json
+
+### Create booking with body
+POST http://localhost:3000/api/v1/bookings
+Content-Type: application/json
+
+{
+    "show": "66d7849c5e737680c6007aeb",
+    "seats": ["B1", "B2"],
+    "email": "henry@bergstrom.com"
+}

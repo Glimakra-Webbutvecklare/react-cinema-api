@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // Trust the reverse proxy
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 
 // Add logger for all requests

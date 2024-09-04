@@ -22,27 +22,93 @@ const movies = [
     director: 'Frank Darabont',
     posterUrl: 'https://www.themoviedb.org/t/p/w1280/20f2GThu22hp5MgCA4dg3bZ3gTS.jpg'
   },
-  // Add more movies here
+  {
+    title: 'The Godfather',
+    description: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.',
+    duration: 175,
+    genre: 'Crime',
+    releaseDate: new Date('1972-03-24'),
+    director: 'Francis Ford Coppola',
+    posterUrl: 'https://www.themoviedb.org/t/p/w1280/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg'
+  },
+  {
+    title: 'The Dark Knight',
+    description: 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+    duration: 152,
+    genre: 'Action',
+    releaseDate: new Date('2008-07-18'),
+    director: 'Christopher Nolan',
+    posterUrl: 'https://www.themoviedb.org/t/p/w1280/qJ2tW6WMUDux911r6m7haRef0WH.jpg'
+  },
+  {
+    title: 'Pulp Fiction',
+    description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+    duration: 154,
+    genre: 'Crime',
+    releaseDate: new Date('1994-10-14'),
+    director: 'Quentin Tarantino',
+    posterUrl: 'https://www.themoviedb.org/t/p/w1280/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg'
+  }
 ];
 
 const shows = [
   {
     movie: null, // We'll set this after creating movies
-    startTime: new Date('2024-10-01T18:00:00'),
-    endTime: new Date('2024-10-01T20:28:00'),
+    startTime: new Date('2024-09-27T18:00:00'),
     availableSeats: ['A1', 'A2', 'A3', 'A4','A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
     bookedSeats: [],
     roomNumber: 1,
   },
   {
     movie: null,
-    startTime: new Date('2024-10-01T20:00:00'),
-    endTime: new Date('2024-10-01T22:22:00'),
+    startTime: new Date('2024-09-28T20:00:00'),
     availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
     bookedSeats: [],
     roomNumber: 1,
+  },
+  {
+    movie: null,
+    startTime: new Date('2024-09-29T20:00:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
+    roomNumber: 1,
+  },
+  {
+    movie: null,
+    startTime: new Date('2024-09-30T20:00:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
+    roomNumber: 1,
+  },
+  {
+    movie: null,
+    startTime: new Date('2024-10-02T20:00:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
+    roomNumber: 1,
+  },
+  {
+    movie: null,
+    startTime: new Date('2024-10-03T20:00:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
+    roomNumber: 2,
+  },
+  {
+    movie: null,
+    startTime: new Date('2024-10-04T20:00:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
+    roomNumber: 2,
+  },
+  {
+    movie: null,
+    startTime: new Date('2024-10-05T20:00:00'),
+    availableSeats: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'],
+    bookedSeats: [],
+    roomNumber: 2,
   }
-  // Add more shows here
+  
 ];
 
 const numberOfBookings = shows.length;
@@ -68,10 +134,13 @@ async function seedDatabase() {
     const createdMovies = await Movie.insertMany(movies);
 
     // Seed shows
-    shows.forEach((show, index) => {
-      show.movie = createdMovies[index % createdMovies.length]._id;
-    });
-    const createdShows = await Show.insertMany(shows);
+    const createdShows = [];
+    for (let i = 0; i < shows.length; i++) {
+      const show = new Show(shows[i]);
+      show.movie = createdMovies[i % createdMovies.length]._id;
+      await show.save();
+      createdShows.push(show);
+    }
 
     // Seed bookings
     let show, email, seats;
