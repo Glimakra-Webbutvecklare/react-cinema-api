@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "seed": "node seed.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles",
+    "dev": "nodemon server.js"
   },
   "author": "Henry Bergström",
   "license": "ISC",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
     "supertest": "^7.0.0"
   }
 }
