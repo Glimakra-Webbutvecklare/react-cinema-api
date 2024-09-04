@@ -1,12 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const path = require('path');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger');
 
 const app = express();
 app.use(express.json());
+
+// Enable CORS
+app.use(cors());
 
 // Trust the reverse proxy
 app.set('trust proxy', 1);
@@ -41,6 +47,8 @@ mongoose.connect(url, clientOptions)
 	.then(() => console.log('Connected to MongoDB'))
 	.catch(err => console.error('Could not connect to MongoDB...', err));
 
+// Serve Swagger documentation
+app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Setup routes
 app.use('/api/v1/movies', limiter, require('./routes/movieRoutes'));

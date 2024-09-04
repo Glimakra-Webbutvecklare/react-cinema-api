@@ -1,5 +1,40 @@
 const mongoose = require('mongoose');
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Show:
+ *       type: object
+ *       properties:
+ *         movie:
+ *           type: string
+ *           description: The ID of the associated movie
+ *         startTime:
+ *           type: string
+ *           format: date-time
+ *           description: The start time of the show
+ *         endTime:
+ *           type: string
+ *           format: date-time
+ *           description: The end time of the show (calculated automatically)
+ *         availableSeats:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: List of available seat numbers
+ *         bookedSeats:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: List of booked seat numbers
+ *         roomNumber:
+ *           type: number
+ *           description: The room number for the show
+ *         pricePerSeat:
+ *           type: number
+ *           description: The price per seat for this show
+ */
 const showSchema = new mongoose.Schema({
     movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie' },
     startTime: Date,

@@ -1,6 +1,31 @@
 const mongoose = require('mongoose');
 const Show = require('./Show');
 
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Booking:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *         email:
+ *           type: string
+ *         show:
+ *           type: string
+ *           description: The ID of the associated show
+ *         seats:
+ *           type: array
+ *           items:
+ *             type: string
+ *         bookingTime:
+ *           type: string
+ *           format: date-time
+ *         totalPrice:
+ *           type: number
+ */
 const bookingSchema = new mongoose.Schema({
     show: { type: mongoose.Schema.Types.ObjectId, ref: 'Show' },
     email: String,
