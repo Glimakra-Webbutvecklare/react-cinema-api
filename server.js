@@ -47,18 +47,13 @@ mongoose.connect(url, clientOptions)
 	.then(() => console.log('Connected to MongoDB'))
 	.catch(err => console.error('Could not connect to MongoDB...', err));
 
-// Serve Swagger documentation
-app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-
 // Setup routes
 app.use('/api/v1/movies', limiter, require('./routes/movieRoutes'));
 app.use('/api/v1/shows', limiter, require('./routes/showRoutes'));
 app.use('/api/v1/bookings', limiter, require('./routes/bookingRoutes'));
 
-// Send readme.md as a response for the root route
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/readme.html');
-});
+// Serve Swagger documentation
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Error route
 app.get('/error', (req, res) => {
