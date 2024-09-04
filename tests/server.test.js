@@ -29,7 +29,13 @@ describe('API Endpoints', () => {
       expect(Array.isArray(res.body)).toBeTruthy();
     });
 
-    // Add more tests for other movie routes (POST, PUT, DELETE)
+    it('GET /api/v1/movies/:id should return 404 for non-existent movie', async () => {
+      const nonExistentId = '5f5e7f5c9d3e2a1b1c9d8e7f';
+      const res = await request(app).get(`/api/v1/movies/${nonExistentId}`);
+      expect(res.statusCode).toBe(404);
+    });
+
+
   });
 
   describe('Show Routes', () => {
@@ -39,7 +45,14 @@ describe('API Endpoints', () => {
       expect(Array.isArray(res.body)).toBeTruthy();
     });
 
-    // Add more tests for other show routes (POST, PUT, DELETE)
+    it('GET /api/v1/shows/movie/:id should return shows for a specific movie', async () => {
+      const movies = await request(app).get('/api/v1/movies');
+      const movieId = movies.body[0]._id;
+      const res = await request(app).get(`/api/v1/shows/movie/${movieId}`);
+      expect(res.statusCode).toBe(200);
+      expect(Array.isArray(res.body)).toBeTruthy();
+      res.body.forEach(show => expect(show.movie._id).toBe(movieId));
+    });
   });
 
   describe('Booking Routes', () => {
@@ -52,17 +65,19 @@ describe('API Endpoints', () => {
     // Add more tests for other booking routes (POST, PUT, DELETE)
     // Booking a show
     it('should book a show', async () => {
-      // Create a test booking by first finding a movie
+      // Create a test booking by first finding a show
       const shows = await request(app).get('/api/v1/shows');
 
       // pick random movie from the list
       const randomShow = shows.body[Math.floor(Math.random() * shows.body.length)];
 
+      // pick random seats from the available seats
+      const randomSeats = randomShow.availableSeats.slice(0, 2);
+
       const bookingData = {
         show: randomShow._id,
         email: 'test@example.com',
-        seats: ['B1', 'B2'],
-        totalPrice: 20,
+        seats: randomSeats,
       };
 
       const res = await request(app).post('/api/v1/bookings').send(bookingData);
@@ -70,7 +85,7 @@ describe('API Endpoints', () => {
       expect(res.statusCode).toBe(201);
     });
   });
-  
+
   describe('Rate Limiting', () => {
     it('should limit requests to 100 per 15 minutes', async () => {
       for (let i = 0; i < 100; i++) {
@@ -85,13 +100,22 @@ describe('API Endpoints', () => {
     it('should return 500 for server errors', async () => {
       // Simulate a server error
       jest.spyOn(console, 'error').mockImplementation(() => {});
-      app.get('/error', (req, res) => {
+      // Add the error route for testing
+      app.get('/api/v1/error', (req, res, next) => {
         throw new Error('Test error');
       });
 
-      const res = await request(app).get('/error');
+      // unset '/' route for testing
+      app.get('/', (req, res) => {
+        res.send('Hello World!');
+      });
+      
+      const res = await request(app).get('/api/v1/error')
+                                    .set('Accept', 'application/json');
+
+      console.log(res);
+      expect(res.body.message).toBe('Something broke!');
       expect(res.statusCode).toBe(500);
-      expect(res.text).toBe('Something broke!');
     });
   });
 

@@ -52,19 +52,20 @@ app.use('/api/v1/movies', limiter, require('./routes/movieRoutes'));
 app.use('/api/v1/shows', limiter, require('./routes/showRoutes'));
 app.use('/api/v1/bookings', limiter, require('./routes/bookingRoutes'));
 
-// Serve Swagger documentation
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-
-// Error route
-app.get('/error', (req, res) => {
-    throw new Error('Test error');
-  });
+// Add the error route for testing
+// Uncomment this before running 'npm run test'
+// app.get('/api/v1/error', (req, res, next) => {
+//   throw new Error('Test error');
+// });
 
 // 500 handler
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Something broke!' });
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something broke!' });
 });
+
+// Serve Swagger documentation
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // 404 handler for all other routes
 app.use((req, res, next) => {

@@ -8,6 +8,9 @@ exports.getAllBookings = async (req, res) => {
 // Get one Booking
 exports.getBooking = async (req, res) => {
     const booking = await Booking.findById(req.params.id).populate('show');
+    if (!booking) {
+        return res.status(404).json({message: 'Bbooking not found.'});
+    }
     res.send(booking);
 };
 
@@ -32,11 +35,17 @@ exports.createBooking =  async (req, res) => {
 // delete a booking
 exports.deleteBooking = async (req, res) => {
     const booking = await Booking.findByIdAndRemove(req.params.id);
+    if (!booking) {
+        return res.status(404).json({message: 'Bbooking not found.'});
+    }
     res.send(booking);
 };
 
 // update a booking
 exports.updateBooking = async (req, res) => {
     const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!booking) {
+        return res.status(404).json({message: 'Bbooking not found.'});
+    }
     res.send(booking);
 };

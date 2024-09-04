@@ -17,17 +17,20 @@ exports.getAllShows = async (req, res) => {
 // Get a specific Show by id
 exports.getShow = async (req, res) => {
     const show = await Show.findById(req.params.id).populate('movie');
+    if (!show) return res.status(404).json({message: 'Show not found'});
     res.send(show);
 };
 
 exports.getShowsByMovieId = async (req, res) => {
     const shows = await Show.find({ movie: req.params.id }).populate('movie');
+    if (!shows) return res.status(404).json({message: 'Shows not found'});
     res.send(shows);
 };
 
 // Update a Show
 exports.updateShow = async (req, res) => {
     const show = await Show.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!show) return res.status(404).json({message: 'Show not found'});
     res.send(show);
 };
 
