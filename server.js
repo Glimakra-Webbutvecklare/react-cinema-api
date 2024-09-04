@@ -11,7 +11,10 @@ app.use(express.json());
 // Trust the reverse proxy
 app.set('trust proxy', true);
 
+
 // Add logger for all requests
+// Logg both from console and to access.log file
+app.use(morgan('dev'));
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 app.use(morgan('combined', {stream: accessLogStream} ));
 
@@ -57,7 +60,7 @@ app.get('/error', (req, res) => {
 // 500 handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    res.status(500).json({ message: 'Something broke!' });
 });
 
 // 404 handler for all other routes

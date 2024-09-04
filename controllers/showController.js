@@ -34,5 +34,5 @@ exports.updateShow = async (req, res) => {
 // Delete a Show
 exports.deleteShow = async (req, res) => {
     await Show.findByIdAndDelete(req.params.id);
-    res.send({ message: 'Show deleted' });
+    res.json({ message: 'Show deleted' });
 };

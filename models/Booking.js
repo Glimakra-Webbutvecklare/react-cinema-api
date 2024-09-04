@@ -9,8 +9,6 @@ const bookingSchema = new mongoose.Schema({
     totalPrice: Number,
 });
 
-
-
 // Create a function for creating a booking
 // it must check if the show is available
 // and if the seats are available

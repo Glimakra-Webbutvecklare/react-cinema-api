@@ -18,12 +18,15 @@ exports.createBooking =  async (req, res) => {
     
     // validate re.body
     if (!show || !email || !seats) {
-        return res.status(400).send('Missing required fields');
+        return res.status(400).json({ message: 'Missing required fields' } );
     }
 
-    const booking = await Booking.createBooking(show, email, seats);
-
-    res.status(201).send(booking);
+    try {
+        const booking = await Booking.createBooking(show, email, seats);
+        res.status(201).send(booking);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
 
 // delete a booking
