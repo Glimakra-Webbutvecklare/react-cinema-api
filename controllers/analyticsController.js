@@ -49,8 +49,6 @@ exports.getIPRequests = (req, res) => {
 
     readInterface.on('line', function(line) {
         const ip = line.split(' ')[0];
-        ipCounts[ip] = (ipCounts[ip] || 0) + 1;
-
         const geo = geoip.lookup(ip);
 
         ipCounts[ip] = {
@@ -64,13 +62,13 @@ exports.getIPRequests = (req, res) => {
     readInterface.on('close', function() {
         const sortedIPs = Object.entries(ipCounts)
             .sort((a, b) => b[1] - a[1])
-            .map(([ip, data]) => ({ ip, count: data.count, city: data.city, country: data.country }));
+            .map(([ip, data]) => ({ ip, ...data }));
 
         console.log(sortedIPs);
 
         let htmlTable = '<table border="1"><tr><th>IP Address</th><th>City</th><th>Country</th><th>Request Count</th></tr>';
         sortedIPs.forEach(({ ip, count, city, country }) => {
-            htmlTable += `<tr><td>${ip}</td><td>${count}</td><td>${city}</td><td>${country}</td></tr>`;
+            htmlTable += `<tr><td>${ip}</td><td>${city}</td><td>${country}</td><td>${count}</td></tr>`;
         });
         htmlTable += '</table>';
 
