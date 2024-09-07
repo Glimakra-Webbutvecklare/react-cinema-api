@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const geoip = require('geoip-lite');
 
 const logFilePath = path.join(__dirname, '..', 'access.log');
 
@@ -49,16 +50,27 @@ exports.getIPRequests = (req, res) => {
     readInterface.on('line', function(line) {
         const ip = line.split(' ')[0];
         ipCounts[ip] = (ipCounts[ip] || 0) + 1;
+
+        const geo = geoip.lookup(ip);
+
+        ipCounts[ip] = {
+            count: (ipCounts[ip]?.count || 0) + 1,
+            city: geo?.city || "Unknown",
+            country: geo?.country || "Unknown"
+        }
+        
     });
 
     readInterface.on('close', function() {
         const sortedIPs = Object.entries(ipCounts)
             .sort((a, b) => b[1] - a[1])
-            .map(([ip, count]) => ({ ip, count }));
+            .map(([ip, data]) => ({ ip, count: data.count, city: data.city, country: data.country }));
 
-        let htmlTable = '<table border="1"><tr><th>IP Address</th><th>Request Count</th></tr>';
-        sortedIPs.forEach(({ ip, count }) => {
-            htmlTable += `<tr><td>${ip}</td><td>${count}</td></tr>`;
+        console.log(sortedIPs);
+
+        let htmlTable = '<table border="1"><tr><th>IP Address</th><th>City</th><th>Country</th><th>Request Count</th></tr>';
+        sortedIPs.forEach(({ ip, count, city, country }) => {
+            htmlTable += `<tr><td>${ip}</td><td>${count}</td><td>${city}</td><td>${country}</td></tr>`;
         });
         htmlTable += '</table>';
 
