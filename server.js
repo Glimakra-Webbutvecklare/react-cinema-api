@@ -51,7 +51,7 @@ mongoose.connect(url, clientOptions)
 app.use('/api/v1/movies', limiter, require('./routes/movieRoutes'));
 app.use('/api/v1/shows', limiter, require('./routes/showRoutes'));
 app.use('/api/v1/bookings', limiter, require('./routes/bookingRoutes'));
-
+app.use('/api/v1/analytics', limiter, require('./routes/analyticsRoutes'));
 // Add the error route for testing
 // Uncomment this before running 'npm run test'
 // app.get('/api/v1/error', (req, res, next) => {
