@@ -61,7 +61,7 @@ exports.getIPRequests = (req, res) => {
 
     readInterface.on('close', function() {
         const sortedIPs = Object.entries(ipCounts)
-            .sort((a, b) => b[1] - a[1])
+            .sort((a, b) => b[1].count - a[1].count)
             .map(([ip, data]) => ({ ip, ...data }));
 
         console.log(sortedIPs);
