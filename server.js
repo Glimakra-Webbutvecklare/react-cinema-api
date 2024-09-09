@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const path = require('path');
 const morgan = require('morgan');
+const apiKeyAuth = require('./middleware/apiKeyAuth');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
 
@@ -46,6 +47,9 @@ const url = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_URL}`;
 mongoose.connect(url, clientOptions)
 	.then(() => console.log('Connected to MongoDB'))
 	.catch(err => console.error('Could not connect to MongoDB...', err));
+
+// Apply Api-key middleware
+app.use(apiKeyAuth);
 
 // Setup routes
 app.use('/api/v1/movies', limiter, require('./routes/movieRoutes'));
