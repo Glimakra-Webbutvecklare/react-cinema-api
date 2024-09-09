@@ -152,6 +152,9 @@ async function seedDatabase() {
       await Booking.createBooking(show, email, seats);
     }
 
+    const apiKey = new ApiKey({ key: 'WUD2024-DEMO_API_KEY' });
+    await apiKey.save();
+
     console.log('Database seeded successfully');
   } catch (error) {
     console.error('Error seeding database:', error);
